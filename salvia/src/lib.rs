@@ -333,6 +333,7 @@
 //! *   `tracing` - enable internal logging via [`tracing`][docs.rs:tracing] crate.
 //!     It gets quite verbose, intended for debugging of `salvia` itself.
 //!     Log contents are not part of SemVer guarantees.
+//!     See [CONTRIBUTING][repo:contributing] doc for more details on logging levels.
 //!
 //!     You **should not** use it in production or enable in your lib:
 //!     it silently modifies definition of [`Stashable`] by adding [`Debug`] trait.
@@ -340,6 +341,7 @@
 //!     At the moment it just enables [`doc_cfg`][rustdoc:doc_cfg],
 //!     so it is only useful when compiling documentation.
 //!
+//! [repo:contributing]: https://github.com/haibane-tenshi/salvia/blob/main/CONTRIBUTING.md#using-tracing
 //! [docs.rs:async_trait]: https://docs.rs/async-trait/latest/async_trait/
 //! [docs.rs:tracing]: https://docs.rs/tracing/latest/tracing/
 //! [rustdoc:doc_cfg]: https://doc.rust-lang.org/rustdoc/unstable-features.html#doccfg-recording-what-platforms-or-features-are-required-for-code-to-be-present
@@ -359,8 +361,10 @@
 //!
 //! *   No serialization/deserialization capabilities.
 //!
-//!     [`anymap`] crate is used internally which makes it unclear to how even approach
+//!     [`anymap2`] crate is used internally which makes it unclear to how even approach
 //!     this topic.
+//!
+//!     See [DESIGN_DOC][repo:design_doc] for list of possible approaches.
 //!
 //! *   No node deallocation.
 //!
@@ -411,6 +415,8 @@
 //!     If you are in need for more sophisticated dataflow control you should lean into normal
 //!     async synchronization methods (manager tasks, semaphores, etc).
 //!
+//! [repo:design_doc]: https://github.com/haibane-tenshi/salvia/blob/main/DESIGN_DOC.md#deserialization
+//!
 //! # Similar projects
 //!
 //! * [`salsa`][docs.rs:salsa]
@@ -447,7 +453,7 @@
 //!
 //! [docs.rs:salsa]: https://docs.rs/salsa/latest/salsa/
 //! [docs.rs:futures_signals]: https://docs.rs/futures-signals/latest/futures_signals/
-// #![warn(missing_docs)]
+#![warn(missing_docs)]
 #![allow(dead_code)]
 #![cfg_attr(feature = "nightly", feature(doc_cfg))]
 
@@ -499,6 +505,19 @@ pub mod macro_support;
 /// It is recommended to use the trait over specifying every bound individually.
 #[cfg(not(feature = "tracing"))]
 pub trait Stashable: Clone + Eq + Send + Sync + 'static {}
+
+/// A shortcut for `Debug + Clone + Eq + Send + Sync + 'static`.
+///
+/// This trait is an umbrella for all trait bounds required for value types
+/// flowing in or out of the framework.
+/// See [crate level](self#core-traits) documentation for more details.
+///
+/// The purpose of this trait is to reduce boilerplate and chances of accidentally forgetting some
+/// in generic context.
+/// It is recommended to use the trait over specifying every bound individually.
+///
+/// **Warning**: this variant of trait is defined under `tracing` feature and is different
+/// from normal definition (+ `Debug`).
 #[cfg(feature = "tracing")]
 pub trait Stashable: Debug + Clone + Eq + Send + Sync + 'static {}
 
