@@ -1,0 +1,56 @@
+error[E0277]: the trait bound `A: Hash` is not satisfied
+ --> $DIR/host_traits_no_stashable.rs:3:10
+  |
+3 | #[derive(InputAccess)]
+  |          ^^^^^^^^^^^ the trait `Hash` is not implemented for `A`
+  |
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `A: Eq` is not satisfied
+ --> $DIR/host_traits_no_stashable.rs:3:10
+  |
+3 | #[derive(InputAccess)]
+  |          ^^^^^^^^^^^ the trait `Eq` is not implemented for `A`
+  |
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `A: Clone` is not satisfied
+ --> $DIR/host_traits_no_stashable.rs:3:10
+  |
+3 | #[derive(InputAccess)]
+  |          ^^^^^^^^^^^ the trait `Clone` is not implemented for `A`
+  |
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `*const ()` cannot be shared between threads safely
+ --> $DIR/host_traits_no_stashable.rs:3:10
+  |
+3 | #[derive(InputAccess)]
+  |          ^^^^^^^^^^^ `*const ()` cannot be shared between threads safely
+  |
+  = help: within `A`, the trait `Sync` is not implemented for `*const ()`
+note: required because it appears within the type `A`
+ --> $DIR/host_traits_no_stashable.rs:4:8
+  |
+4 | struct A(* const ());
+  |        ^
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `*const ()` cannot be sent between threads safely
+ --> $DIR/host_traits_no_stashable.rs:3:10
+  |
+3 | #[derive(InputAccess)]
+  |          ^^^^^^^^^^^ `*const ()` cannot be sent between threads safely
+  |
+  = help: within `A`, the trait `Send` is not implemented for `*const ()`
+note: required because it appears within the type `A`
+ --> $DIR/host_traits_no_stashable.rs:4:8
+  |
+4 | struct A(* const ());
+  |        ^
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)

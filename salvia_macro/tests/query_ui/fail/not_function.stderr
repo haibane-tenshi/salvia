@@ -1,0 +1,5 @@
+error: #[query]: function is expected
+ --> $DIR/not_function.rs:4:1
+  |
+4 | struct A;
+  | ^^^^^^

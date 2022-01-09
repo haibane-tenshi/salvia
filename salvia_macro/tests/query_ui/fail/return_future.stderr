@@ -1,0 +1,5 @@
+error: #[query]: can only be applied to async functions
+  --> $DIR/return_future.rs:23:4
+   |
+23 | fn f(_cx: &QueryContext) -> A {
+   |    ^

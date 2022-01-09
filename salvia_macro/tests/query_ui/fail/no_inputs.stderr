@@ -1,0 +1,5 @@
+error: #[query]: function should accept &::salvia::QueryContext as its last parameter
+ --> $DIR/no_inputs.rs:4:11
+  |
+4 | async fn f() {}
+  |           ^^

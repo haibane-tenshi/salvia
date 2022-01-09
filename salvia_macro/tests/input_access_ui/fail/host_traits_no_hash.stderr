@@ -1,0 +1,8 @@
+error[E0277]: the trait bound `A: Hash` is not satisfied
+ --> $DIR/host_traits_no_hash.rs:3:45
+  |
+3 | #[derive(Debug, Copy, Clone, Eq, PartialEq, InputAccess)]
+  |                                             ^^^^^^^^^^^ the trait `Hash` is not implemented for `A`
+  |
+  = help: see issue #48214
+  = note: this error originates in the derive macro `InputAccess` (in Nightly builds, run with -Z macro-backtrace for more info)

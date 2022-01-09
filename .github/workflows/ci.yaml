@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  setup:
+    name: Checkout and install toolchain
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+          components: clippy
+
+  clippy:
+    name: Clippy
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clippy check
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --workspace --features async-trait -- -D warnings
+
+  clippy_tracing:
+    name: "Clippy (features: tracing)"
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clippy check
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --package salvia --features async-trait,tracing -- -D warnings
+
+  test:
+    name: Test Suite
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --workspace
+
+  test_tracing:
+    name: "Test Suite (features: tracing)"
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --package salvia --features tracing
+
+  rustfmt:
+    name: Rustfmt
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check formatting
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          override: true
+          default: true
+      - name: Check documentation
+        env:
+          RUSTDOCFLAGS: -D warnings
+        uses: actions-rs/cargo@v1
+        with:
+          command: doc
+          args: --no-deps --document-private-items --features async-trait,nightly --workspace

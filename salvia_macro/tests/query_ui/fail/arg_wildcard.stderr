@@ -1,0 +1,5 @@
+error: #[query]: wildcard pattern is not supported, consider giving it a name starting with `_`, for ex. `_my_var`; even though your function doesn't need that parameter, query must capture and cache it to correctly function
+ --> $DIR/arg_wildcard.rs:6:12
+  |
+6 | async fn f(_: i32, _cx: &QueryContext) {}
+  |            ^

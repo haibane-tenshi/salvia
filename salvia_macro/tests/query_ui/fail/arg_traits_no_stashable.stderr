@@ -1,0 +1,147 @@
+error[E0277]: the trait bound `A: Clone` is not satisfied
+  --> $DIR/arg_traits_no_stashable.rs:8:16
+   |
+8  | async fn f(_a: A, _cx: &QueryContext) {}
+   |                ^ the trait `Clone` is not implemented for `A`
+   |
+   = note: required because of the requirements on the impl of `Stashable` for `A`
+note: required by `StashableCheck`
+  --> $DIR/macro_support.rs:9:5
+   |
+9  | /     pub struct StashableCheck<T>(pub PhantomData<T>)
+10 | |     where
+11 | |         T: Stashable;
+   | |_____________________^
+
+error[E0277]: the trait bound `A: Eq` is not satisfied
+  --> $DIR/arg_traits_no_stashable.rs:8:16
+   |
+8  | async fn f(_a: A, _cx: &QueryContext) {}
+   |                ^ the trait `Eq` is not implemented for `A`
+   |
+   = note: required because of the requirements on the impl of `Stashable` for `A`
+note: required by `StashableCheck`
+  --> $DIR/macro_support.rs:9:5
+   |
+9  | /     pub struct StashableCheck<T>(pub PhantomData<T>)
+10 | |     where
+11 | |         T: Stashable;
+   | |_____________________^
+
+error[E0277]: `*mut ()` cannot be sent between threads safely
+  --> $DIR/arg_traits_no_stashable.rs:8:16
+   |
+8  | async fn f(_a: A, _cx: &QueryContext) {}
+   |                ^ `*mut ()` cannot be sent between threads safely
+   |
+   = help: within `A`, the trait `Send` is not implemented for `*mut ()`
+   = note: required because it appears within the type `PhantomData<*mut ()>`
+note: required because it appears within the type `A`
+  --> $DIR/arg_traits_no_stashable.rs:5:8
+   |
+5  | struct A(PhantomData<* mut ()>);
+   |        ^
+   = note: required because of the requirements on the impl of `Stashable` for `A`
+note: required by `StashableCheck`
+  --> $DIR/macro_support.rs:9:5
+   |
+9  | /     pub struct StashableCheck<T>(pub PhantomData<T>)
+10 | |     where
+11 | |         T: Stashable;
+   | |_____________________^
+
+error[E0277]: `*mut ()` cannot be shared between threads safely
+  --> $DIR/arg_traits_no_stashable.rs:8:16
+   |
+8  | async fn f(_a: A, _cx: &QueryContext) {}
+   |                ^ `*mut ()` cannot be shared between threads safely
+   |
+   = help: within `A`, the trait `Sync` is not implemented for `*mut ()`
+   = note: required because it appears within the type `PhantomData<*mut ()>`
+note: required because it appears within the type `A`
+  --> $DIR/arg_traits_no_stashable.rs:5:8
+   |
+5  | struct A(PhantomData<* mut ()>);
+   |        ^
+   = note: required because of the requirements on the impl of `Stashable` for `A`
+note: required by `StashableCheck`
+  --> $DIR/macro_support.rs:9:5
+   |
+9  | /     pub struct StashableCheck<T>(pub PhantomData<T>)
+10 | |     where
+11 | |         T: Stashable;
+   | |_____________________^
+
+error[E0277]: the trait bound `A: Clone` is not satisfied in `(A,)`
+   --> $DIR/arg_traits_no_stashable.rs:7:1
+    |
+7   | #[query]
+    | ^^^^^^^^ within `(A,)`, the trait `Clone` is not implemented for `A`
+    |
+    = note: required because it appears within the type `(A,)`
+    = note: required because of the requirements on the impl of `Stashable` for `(A,)`
+note: required by a bound in `executor`
+   --> $DIR/query.rs:608:13
+    |
+608 |     Params: Stashable + Hash,
+    |             ^^^^^^^^^ required by this bound in `executor`
+    = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `A: Eq` is not satisfied
+   --> $DIR/arg_traits_no_stashable.rs:7:1
+    |
+7   | #[query]
+    | ^^^^^^^^ the trait `Eq` is not implemented for `A`
+    |
+    = note: required because of the requirements on the impl of `Eq` for `(A,)`
+    = note: required because of the requirements on the impl of `Stashable` for `(A,)`
+note: required by a bound in `executor`
+   --> $DIR/query.rs:608:13
+    |
+608 |     Params: Stashable + Hash,
+    |             ^^^^^^^^^ required by this bound in `executor`
+    = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `*mut ()` cannot be sent between threads safely
+   --> $DIR/arg_traits_no_stashable.rs:7:1
+    |
+7   | #[query]
+    | ^^^^^^^^ `*mut ()` cannot be sent between threads safely
+    |
+    = help: within `(A,)`, the trait `Send` is not implemented for `*mut ()`
+    = note: required because it appears within the type `PhantomData<*mut ()>`
+note: required because it appears within the type `A`
+   --> $DIR/arg_traits_no_stashable.rs:5:8
+    |
+5   | struct A(PhantomData<* mut ()>);
+    |        ^
+    = note: required because it appears within the type `(A,)`
+    = note: required because of the requirements on the impl of `Stashable` for `(A,)`
+note: required by a bound in `executor`
+   --> $DIR/query.rs:608:13
+    |
+608 |     Params: Stashable + Hash,
+    |             ^^^^^^^^^ required by this bound in `executor`
+    = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `*mut ()` cannot be shared between threads safely
+   --> $DIR/arg_traits_no_stashable.rs:7:1
+    |
+7   | #[query]
+    | ^^^^^^^^ `*mut ()` cannot be shared between threads safely
+    |
+    = help: within `(A,)`, the trait `Sync` is not implemented for `*mut ()`
+    = note: required because it appears within the type `PhantomData<*mut ()>`
+note: required because it appears within the type `A`
+   --> $DIR/arg_traits_no_stashable.rs:5:8
+    |
+5   | struct A(PhantomData<* mut ()>);
+    |        ^
+    = note: required because it appears within the type `(A,)`
+    = note: required because of the requirements on the impl of `Stashable` for `(A,)`
+note: required by a bound in `executor`
+   --> $DIR/query.rs:608:13
+    |
+608 |     Params: Stashable + Hash,
+    |             ^^^^^^^^^ required by this bound in `executor`
+    = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)

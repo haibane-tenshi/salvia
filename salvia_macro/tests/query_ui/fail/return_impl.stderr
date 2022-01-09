@@ -1,0 +1,5 @@
+error: #[query]: `impl Trait` syntax is not supported, consider returning concrete type
+ --> $DIR/return_impl.rs:7:35
+  |
+7 | async fn f(_cx: &QueryContext) -> impl Stashable + Debug {
+  |                                   ^^^^

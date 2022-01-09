@@ -1,0 +1,33 @@
+[package]
+name = "salvia_macro"
+version = "0.1.0"
+edition = "2018"
+
+description = "Proc macro implementations of salvia crate"
+authors = ["haibane_tenshi <obscure.sanctum@gmail.com>"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["incremental"]
+categories = ["asynchronous", "caching"]
+
+[package.metadata.docs.rs]
+features = ["async-trait"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.27"
+quote = "1.0.9"
+syn = { version = "1.0.73", features = ["full", "visit"] }
+
+[dev-dependencies]
+# Need this available for doc-tests.
+salvia = { path = "../salvia" }
+
+trybuild = "1.0.42"
+async-recursion = "0.3.2"
+tokio = { version = "1.8.1", features = ["rt-multi-thread"] }
+async-trait = "0.1.50"

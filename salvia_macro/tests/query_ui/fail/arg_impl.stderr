@@ -1,0 +1,5 @@
+error: #[query]: `impl Trait` syntax is not supported, consider turning it into an explicit generic parameter
+ --> $DIR/arg_impl.rs:7:16
+  |
+7 | async fn f(_a: impl Stashable + Hash, _cx: &QueryContext) {}
+  |                ^^^^

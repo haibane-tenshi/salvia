@@ -1,0 +1,5 @@
+error: #[query]: `impl Trait` syntax is not supported, consider returning concrete type
+ --> $DIR/return_transitive_impl.rs:7:36
+  |
+7 | async fn f(_cx: &QueryContext) -> (impl Debug + Clone + Eq + 'static,) {
+  |                                    ^^^^

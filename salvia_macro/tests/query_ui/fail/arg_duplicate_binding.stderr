@@ -1,0 +1,21 @@
+error[E0415]: identifier `_i` is bound more than once in this parameter list
+ --> $DIR/arg_duplicate_binding.rs:6:21
+  |
+6 | async fn f(_i: i32, _i: u64, _cx: &QueryContext) {}
+  |                     ^^ used as parameter more than once
+
+error[E0416]: identifier `_i` is bound more than once in the same pattern
+ --> $DIR/arg_duplicate_binding.rs:6:21
+  |
+6 | async fn f(_i: i32, _i: u64, _cx: &QueryContext) {}
+  |                     ^^ used in a pattern more than once
+
+error[E0308]: mismatched types
+ --> $DIR/arg_duplicate_binding.rs:5:1
+  |
+5 | #[query]
+  | ^^^^^^^^ expected `i32`, found `u64`
+  |
+  = note: expected tuple `(i32, _)`
+             found tuple `(u64, _)`
+  = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)

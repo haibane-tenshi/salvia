@@ -1,0 +1,27 @@
+error[E0277]: the trait bound `A: Hash` is not satisfied
+  --> $DIR/arg_traits_no_hash.rs:7:16
+   |
+7  | async fn f(_a: A, _cx: &QueryContext) {}
+   |                ^ the trait `Hash` is not implemented for `A`
+   |
+note: required by `HashCheck`
+  --> $DIR/macro_support.rs:13:5
+   |
+13 | /     pub struct HashCheck<T>(pub PhantomData<T>)
+14 | |     where
+15 | |         T: Hash;
+   | |________________^
+
+error[E0277]: the trait bound `A: Hash` is not satisfied
+   --> $DIR/arg_traits_no_hash.rs:6:1
+    |
+6   | #[query]
+    | ^^^^^^^^ the trait `Hash` is not implemented for `A`
+    |
+    = note: required because of the requirements on the impl of `Hash` for `(A,)`
+note: required by a bound in `executor`
+   --> $DIR/query.rs:608:25
+    |
+608 |     Params: Stashable + Hash,
+    |                         ^^^^ required by this bound in `executor`
+    = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)

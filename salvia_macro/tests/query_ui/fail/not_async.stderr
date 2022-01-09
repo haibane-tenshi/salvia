@@ -1,0 +1,5 @@
+error: #[query]: can only be applied to async functions
+ --> $DIR/not_async.rs:6:4
+  |
+6 | fn f(_cx: &QueryContext) -> i32 {
+  |    ^

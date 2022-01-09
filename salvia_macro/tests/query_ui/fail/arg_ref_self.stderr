@@ -1,0 +1,15 @@
+error[E0759]: `self` has an anonymous lifetime `'_` but it needs to satisfy a `'static` lifetime requirement
+  --> $DIR/arg_ref_self.rs:11:19
+   |
+11 |     async fn some(&self, _cx: &QueryContext) {}
+   |                   ^^^^^
+   |                   |
+   |                   this data with an anonymous lifetime `'_`...
+   |                   ...is captured here...
+   |
+note: ...and is required to live as long as `'static` here
+  --> $DIR/arg_ref_self.rs:10:5
+   |
+10 |     #[query]
+   |     ^^^^^^^^
+   = note: this error originates in the attribute macro `query` (in Nightly builds, run with -Z macro-backtrace for more info)

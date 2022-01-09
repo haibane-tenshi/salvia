@@ -1,0 +1,7 @@
+error[E0477]: the type `&'a A` does not fulfill the required lifetime
+  --> $DIR/arg_ref_a_self.rs:11:23
+   |
+11 |     async fn some<'a>(&'a self, _cx: &QueryContext) {}
+   |                       ^
+   |
+   = note: type must satisfy the static lifetime
