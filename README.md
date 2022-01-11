@@ -7,7 +7,7 @@
 
 > **Obligatory warning**
 > 
-> This project is highly experimental.
+> This project is highly experimental and mostly is proof-of-concept.
 > Unless you absolutely need `async` consider using [`salsa`][github:salsa] crate instead.
 
 ## Primer

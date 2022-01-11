@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2018"
 
 description = "Incremental computing brought to async Rust"
+repository = "https://github.com/haibane-tenshi/salvia"
+homepage = "https://github.com/haibane-tenshi/salvia"
 authors = ["haibane_tenshi <obscure.sanctum@gmail.com>"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
@@ -19,7 +21,7 @@ features = ["async-trait", "nightly"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-salvia_macro = { path = '../salvia_macro' }
+salvia_macro = { path = '../salvia_macro', version = "0.1.0" }
 
 anymap2 = "0.13.0"
 futures = "0.3.13"

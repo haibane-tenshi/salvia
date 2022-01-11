@@ -3,7 +3,9 @@ name = "salvia_macro"
 version = "0.1.0"
 edition = "2018"
 
-description = "Proc macro implementations of salvia crate"
+description = "Proc macros implementation for Salvia crate"
+repository = "https://github.com/haibane-tenshi/salvia"
+homepage = "https://github.com/haibane-tenshi/salvia"
 authors = ["haibane_tenshi <obscure.sanctum@gmail.com>"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
