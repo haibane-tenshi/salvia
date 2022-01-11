@@ -1,4 +1,7 @@
-# `salvia`
+# Salvia
+
+[![CI](https://img.shields.io/github/workflow/status/haibane-tenshi/salvia/CI)](https://github.com/haibane-tenshi/salvia/actions/workflows/ci.yaml)
+[![Security audit](https://img.shields.io/github/workflow/status/haibane-tenshi/salvia/Security%20audit?label=audit)](https://github.com/haibane-tenshi/salvia/actions/workflows/audit.yaml)
 
 *Incremental computing framework in async Rust.*
 
